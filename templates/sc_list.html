@@ -1,0 +1,116 @@
+{% extends "base.html" %} {% block styles %}
+<link href="/sc_list.css" rel="stylesheet" />
+{% endblock %} {% block page_content %}
+<div class="paper">
+    <form class="sc-form" action="/action/sc/add" method="post">
+        <label>学生：</label>
+        <select name="stu_sn">
+            <option value="">--选择--</option>
+            {% for stu in students %}
+            <option value="{{stu.stu_sn}}">
+                {{stu.stu_name}}({{stu.stu_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>学期：</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for item in courses %}
+            <option value="{{item.cou_sn}}">
+                {{item.cou_term}}
+            </option>
+            {% endfor %}
+
+        </select>
+        <label>课程：</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for item in courses %}
+            <option value="{{item.cou_sn}}">
+                {{item.cou_sn}}({{item.cou_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>周数</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for item in courses %}
+            <option value="{{item.cou_sn}}">
+                {{item.cou_week}}
+            </option>
+            {% endfor %}
+        </select>
+        <label>周次</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for item in courses %}
+            <option value="{{item.cou_sn}}">
+                {{item.cou_day}}({{item.cou_sn}})
+            </option>
+            {% endfor %}
+        </select>
+        <label>上课时间</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for item in courses %}
+            <option value="{{item.cou_sn}}">
+                {{item.cou_jie}}({{item.cou_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+
+        <!-- <label>成绩：</label>
+        <input type="text" name="sc" /> -->
+
+        <input type="submit" value="添加课程" />
+    </form>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>学期</th>
+                <th>课程</th>
+                <th>周数</th>
+                <th>周次</th>
+                <th>上课时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.stu_name }}</td>
+                <td>{{ item.cou_term }}</td>
+                <td>{{ item.cou_name }}</td>
+                <td>{{ item.cou_week }}</td>
+                <td>{{ item.cou_day }}</td>
+                <td>{{ item.cou_jie }}</td>
+
+                <td>
+                    <div class="ctrlbar">
+                        <div class="btn">
+                            <a
+                                href="/sc/edit/{{item.stu_sn}}/{{item.cou_sn}}"
+                            >
+                                修改
+                            </a>
+                        </div>
+                        <div class="btn">
+                            <a
+                                href="/sc/delete/{{item.stu_sn}}/{{item.cou_sn}}"
+                            >
+                                删除
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
