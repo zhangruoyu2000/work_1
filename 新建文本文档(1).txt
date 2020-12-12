@@ -1,0 +1,4 @@
+python -m pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+ python -m pip install aiohttp aiohttp-devtools psycopg2 pylint jinja2

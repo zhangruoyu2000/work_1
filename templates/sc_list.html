@@ -3,7 +3,13 @@
 {% endblock %} {% block page_content %}
 <div class="paper">
     <form class="sc-form" action="/action/sc/add" method="post">
+        <!-- <table id="student-table" class="table">
+            <tr>
+                <td> -->
         <label>学生：</label>
+
+        <!-- </td>
+                <td> -->
         <select name="stu_sn">
             <option value="">--选择--</option>
             {% for stu in students %}
@@ -13,7 +19,46 @@
             {% endfor %}
         </select>
 
-        <label>学期：</label>
+        <!-- </td>
+                <td> -->
+        <label>课程：</label>
+        <!-- </td>
+                <td> -->
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for item in courses %}
+            <option value="{{item.cou_sn}}">
+                {{item.cou_name}}({{item.cou_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <!-- </td>
+
+                <td> -->
+        <label>状态：</label>
+        <input type="text" name="state" />
+
+        <!-- </td>
+                <td>
+                    {% for item in courses %}
+                    <option value="">
+                        {{item.cou_term}}
+                    </option>
+                    {% endfor %}
+
+                </td>
+                <td> -->
+        <input type="submit" value="添加课程" />
+        <!-- 
+                </td>
+
+            </tr>
+        </table> -->
+
+
+
+        <!-- <label>学期：</label>
         <select name="cou_sn">
             <option value="">--选择--</option>
             {% for item in courses %}
@@ -23,16 +68,6 @@
             {% endfor %}
 
         </select>
-        <label>课程：</label>
-        <select name="cou_sn">
-            <option value="">--选择--</option>
-            {% for item in courses %}
-            <option value="{{item.cou_sn}}">
-                {{item.cou_sn}}({{item.cou_sn}})
-            </option>
-            {% endfor %}
-        </select>
-
         <label>周数</label>
         <select name="cou_sn">
             <option value="">--选择--</option>
@@ -61,11 +96,10 @@
             {% endfor %}
         </select>
 
-
+ -->
         <!-- <label>成绩：</label>
         <input type="text" name="sc" /> -->
 
-        <input type="submit" value="添加课程" />
     </form>
     <hr />
     <table class="table">
@@ -93,16 +127,12 @@
                 <td>
                     <div class="ctrlbar">
                         <div class="btn">
-                            <a
-                                href="/sc/edit/{{item.stu_sn}}/{{item.cou_sn}}"
-                            >
+                            <a href="/sc/edit/{{item.stu_sn}}/{{item.cou_sn}}">
                                 修改
                             </a>
                         </div>
                         <div class="btn">
-                            <a
-                                href="/sc/delete/{{item.stu_sn}}/{{item.cou_sn}}"
-                            >
+                            <a href="/sc/delete/{{item.stu_sn}}/{{item.cou_sn}}">
                                 删除
                             </a>
                         </div>
@@ -113,4 +143,6 @@
         </tbody>
     </table>
 </div>
+<!-- <script src="/sc.js"></script> -->
+
 {% endblock %}

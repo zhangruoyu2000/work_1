@@ -3,7 +3,7 @@ from .config import db_block, web_routes, render_html
 
 
 @web_routes.get("/sc")
-async def view_list_grades(request):
+async def view_list_sc(request):
     with db_block() as db:
         db.execute("""
         SELECT sn AS stu_sn, name as stu_name FROM student ORDER BY name
@@ -17,17 +17,22 @@ async def view_list_grades(request):
         courses = list(db)
 
         db.execute("""
-        SELECT g.stu_sn, g.cou_sn, 
+        SELECT stu_sn, cou_sn, state FROM sc ORDER BY stu_sn
+        """)
+        sc = list(db)
+
+
+        db.execute("""
+        SELECT sc1.stu_sn, sc1.cou_sn, 
             s.name as stu_name, 
             c.name as cou_name,
             c.term as cou_term, 
             c.week as cou_week,
             c.day as cou_day,
-            c.jie as cou_jie,
-            g.grade 
-        FROM course_grade as g
-            INNER JOIN student as s ON g.stu_sn = s.sn
-            INNER JOIN course as c  ON g.cou_sn = c.sn
+            c.jie as cou_jie
+        FROM sc as sc1
+            INNER JOIN student as s ON sc1.stu_sn = s.sn
+            INNER JOIN course as c  ON sc1.cou_sn = c.sn
         ORDER BY stu_sn, cou_sn;
         """)
 
@@ -36,6 +41,7 @@ async def view_list_grades(request):
     return render_html(request, 'sc_list.html',
                        students=students,
                        courses=courses,
+                       sc=sc,
                        items=items)
 
 
@@ -43,9 +49,7 @@ async def view_list_grades(request):
 def view_sc_editor(request):
     stu_sn = request.match_info.get("stu_sn")
     cou_sn = request.match_info.get("cou_sn")
-    cou_name = request.match_info.get("cou_name")
-    cou_term = request.match_info.get("cou_term")
-
+    state = request.match_info.get("state")
     if stu_sn is None or cou_sn is None:
         return web.HTTPBadRequest(text="stu_sn, cou_sn, must be required")
 
@@ -55,7 +59,7 @@ def view_sc_editor(request):
 
     with db_block() as db:
         db.execute("""
-        SELECT cou_name FROM sc
+        SELECT state FROM sc
             WHERE stu_sn = %(stu_sn)s AND cou_sn = %(cou_sn)s;
         """, dict(stu_sn=stu_sn, cou_sn=cou_sn))
 
@@ -67,7 +71,7 @@ def view_sc_editor(request):
     return render_html(request, "sc_edit.html",
                        stu_sn=stu_sn,
                        cou_sn=cou_sn,
-                       cou_name=record.cou_name)
+                       state=record.state)
 
 
 @web_routes.get("/sc/delete/{stu_sn}/{cou_sn}")
@@ -79,13 +83,13 @@ def sc_deletion_dialog(request):
 
     with db_block() as db:
         db.execute("""
-        SELECT g.stu_sn, g.cou_sn,
+        SELECT sc1.stu_sn, sc1.cou_sn,
             s.name as stu_name, 
             c.name as cou_name, 
-            g.grade 
-        FROM course_grade as g
-            INNER JOIN student as s ON g.stu_sn = s.sn
-            INNER JOIN course as c  ON g.cou_sn = c.sn
+            sc1.state
+        FROM sc as sc1
+            INNER JOIN student as s ON sc1.stu_sn = s.sn
+            INNER JOIN course as c  ON sc1.cou_sn = c.sn
         WHERE stu_sn = %(stu_sn)s AND cou_sn = %(cou_sn)s;
         """, dict(stu_sn=stu_sn, cou_sn=cou_sn))
 

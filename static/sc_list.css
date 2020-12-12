@@ -1,12 +1,12 @@
 
 
 
-form.grade-form > input, form.grade-form > select {
+form.sc-form > input, form.sc-form > select {
     padding: 5px;
     font-size: 1.2em;
 }
 
-form.grade-form > select {
+form.sc-form > select {
     min-width: 8em;
 }
 

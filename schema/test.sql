@@ -1,1 +1,1 @@
-INSERT INTO sc (stu_sn, cou_sn, cou_name)  VALUES (101, 101,  '高数');
+INSERT INTO sc (stu_sn, cou_sn, state)  VALUES (101, 103,  'yyes');

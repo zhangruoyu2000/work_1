@@ -11,6 +11,8 @@ import serv.student_rest
 import serv.course_views
 import serv.course_rest
 import serv.sc_views
+import serv.sc_rest
+
 
 
 app = web.Application()

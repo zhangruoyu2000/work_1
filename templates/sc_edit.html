@@ -8,12 +8,17 @@
 <div class="paper">
     <form action="/action/sc/edit/{{stu_sn}}/{{cou_sn}}" method="post">
         课程：
+
         <select name="cou_sn">
             <option value="">--选择--</option>
-            <option value="">{{cou_name}}({{cou_sn}})
+            {% for item in courses %}
+            <option value="{{item.cou_sn}}">
+                {{item.cou_name}}({{item.cou_sn}})
             </option>
+            {% endfor %}
         </select>
         <input type="submit" value="修改" />
+
 
 
     </form>

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS sc  (
     stu_sn     INTEGER,     --学号
     cou_sn     INTEGER,     -- 课程序号
-    cou_name   TEXT,
+    state   TEXT,
 
     PRIMARY KEY(stu_sn, cou_sn)
 );
