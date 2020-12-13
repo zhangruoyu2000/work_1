@@ -11,30 +11,30 @@ async def action_grade_add(request):
     cou_sn = params.get("cou_sn")
     grade = params.get("grade")
 
-    # if stu_sn is None or cou_sn is None or grade is None:
-    #     return web.HTTPBadRequest(text="stu_sn, cou_sn, grade must be required")
+    if stu_sn is None or cou_sn is None or grade is None:
+        return web.HTTPBadRequest(text="stu_sn, cou_sn, grade must be required")
 
-    # try:
-    #     stu_sn = int(stu_sn)
-    #     cou_sn = int(cou_sn)
-    #     grade = float(grade)
-    # except ValueError:
-    #     return web.HTTPBadRequest(text="invalid value")
+    try:
+        stu_sn = int(stu_sn)
+        cou_sn = int(cou_sn)
+        grade = float(grade)
+    except ValueError:
+        return web.HTTPBadRequest(text="invalid value")
 
-    # try:
-    with db_block() as db:
-        db.execute("""
-        INSERT INTO course_grade (stu_sn, cou_sn, grade) 
-        VALUES ( %(stu_sn)s, %(cou_sn)s, %(grade)s)
-        """, dict(stu_sn=stu_sn, cou_sn=cou_sn, grade=grade))
-    # except psycopg2.errors.UniqueViolation:
-    #     query = urlencode({
-    #         "message": "已经添加该学生的课程成绩",
-    #         "return": "/grade"
-    #     })
-    #     return web.HTTPFound(location=f"/error?{query}")
-    # except psycopg2.errors.ForeignKeyViolation as ex:
-    #     return web.HTTPBadRequest(text=f"无此学生或课程: {ex}")
+    try:
+        with db_block() as db:
+            db.execute("""
+            INSERT INTO course_grade (stu_sn, cou_sn, grade) 
+            VALUES ( %(stu_sn)s, %(cou_sn)s, %(grade)s)
+            """, dict(stu_sn=stu_sn, cou_sn=cou_sn, grade=grade))
+    except psycopg2.errors.UniqueViolation:
+        query = urlencode({
+            "message": "已经添加该学生的课程成绩",
+            "return": "/grade"
+        })
+        return web.HTTPFound(location=f"/error?{query}")
+    except psycopg2.errors.ForeignKeyViolation as ex:
+        return web.HTTPBadRequest(text=f"无此学生或课程: {ex}")
 
     return web.HTTPFound(location="/grade")
 
