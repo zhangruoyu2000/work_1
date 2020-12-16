@@ -1,7 +1,7 @@
 async function renderList() {
     console.log("1");
 
-    let response = await fetch(`/api/student/list`);
+    let response = await fetch(`/api/grade/list`);
     if (!response.ok) {
         console.error(response);
         return;
@@ -155,7 +155,7 @@ async function renderEditDialog() {
         if (!data.stu_sn) {
             // 异步执行POST请求操作
             (async () => {
-                let response = await fetch("/api/student", {
+                let response = await fetch("/api/grade", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json;charset=utf-8",
@@ -173,7 +173,7 @@ async function renderEditDialog() {
         } else {
             // 异步执行PUT请求操作
             (async () => {
-                let response = await fetch(`/api/student/${data.stu_sn}`, {
+                let response = await fetch(`/api/grade/${data.stu_sn}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json;charset=utf-8",

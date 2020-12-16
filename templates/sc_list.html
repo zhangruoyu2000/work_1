@@ -1,17 +1,11 @@
 {% extends "base.html" %} {% block styles %}
 <link href="/sc_list.css" rel="stylesheet" />
 {% endblock %} {% block page_content %}
-<div class="paper">
+<div class="paper" style="min-height: 5vh;">
     <form class="sc-form" action="/action/sc/add" method="post">
-        <!-- <table id="student-table" class="table">
-            <tr>
-                <td> -->
         <input type="hidden" name="sc_sn" />
 
         <label>学生：</label>
-
-        <!-- </td>
-                <td> -->
         <select name="stu_sn">
             <option value="">--选择--</option>
             {% for stu in students %}
@@ -20,12 +14,8 @@
             </option>
             {% endfor %}
         </select>
-
-        <!-- </td>
-                <td> -->
         <label>课程：</label>
-        <!-- </td>
-                <td> -->
+
         <select name="cou_sn">
             <option value="">--选择--</option>
             {% for item in courses %}
@@ -35,74 +25,14 @@
             {% endfor %}
         </select>
 
-        <!-- </td>
-
-                <td> -->
-        <label>状态：</label>
+        <label>备注</label>
         <input type="text" name="state" />
-
-        <!-- </td>
-                <td>
-                    {% for item in courses %}
-                    <option value="">
-                        {{item.cou_term}}
-                    </option>
-                    {% endfor %}
-
-                </td>
-                <td> -->
+   
         <input type="submit" value="添加课程" />
-        <!-- 
-                </td>
 
-            </tr>
-        </table> -->
-
-
-
-        <!-- <label>学期：</label>
-        <select name="cou_sn">
-            <option value="">--选择--</option>
-            {% for item in courses %}
-            <option value="{{item.cou_sn}}">
-                {{item.cou_term}}
-            </option>
-            {% endfor %}
-
-        </select>
-        <label>周数</label>
-        <select name="cou_sn">
-            <option value="">--选择--</option>
-            {% for item in courses %}
-            <option value="{{item.cou_sn}}">
-                {{item.cou_week}}
-            </option>
-            {% endfor %}
-        </select>
-        <label>周次</label>
-        <select name="cou_sn">
-            <option value="">--选择--</option>
-            {% for item in courses %}
-            <option value="{{item.cou_sn}}">
-                {{item.cou_day}}({{item.cou_sn}})
-            </option>
-            {% endfor %}
-        </select>
-        <label>上课时间</label>
-        <select name="cou_sn">
-            <option value="">--选择--</option>
-            {% for item in courses %}
-            <option value="{{item.cou_sn}}">
-                {{item.cou_jie}}({{item.cou_sn}})
-            </option>
-            {% endfor %}
-        </select>
-
- -->
-        <!-- <label>成绩：</label>
-        <input type="text" name="sc" /> -->
 
     </form>
+
     <hr />
     <table class="table">
         <thead>
@@ -145,6 +75,5 @@
         </tbody>
     </table>
 </div>
-<!-- <script src="/sc.js"></script> -->
 
 {% endblock %}

@@ -9,21 +9,9 @@ from dataclasses import asdict
 from serv.json_util import json_dumps
 
 
-# @web_routes.get("/api/sc/list")
-# async def get_sc_list(request):
-#     with db_block() as db:
-#         db.execute("""
-#         SELECT  stu_sn, stu_no, state FROM sc
-#         """)
-#         data = list(asdict(r) for r in db)
-        
-#     return web.Response(text=json_dumps(data), content_type="application/json")
-
-
 @web_routes.post('/action/sc/add')
 async def action_sc_add(request):
 
-    # sc = await request.json()
     paramss = await request.post()
     stu_sn = paramss.get("stu_sn")
     cou_sn = paramss.get("cou_sn")
@@ -57,13 +45,11 @@ async def action_sc_add(request):
     except psycopg2.errors.ForeignKeyViolation as ex:
         return web.HTTPBadRequest(text=f"无此学生或课程: {ex}")
 
-    # return web.Response(text=json_dumps(sc), content_type="application/json")
     return web.HTTPFound(location="/sc")
 
 
 @web_routes.post('/action/sc/edit/{stu_sn}/{cou_sn}')
 async def edit_sc_action(request):
-    # sc_sn = request.match_info.get("sc_sn")
     stu_sn = request.match_info.get("stu_sn")
     cou_sn = request.match_info.get("cou_sn")
     if stu_sn is None or cou_sn is None:
@@ -73,7 +59,6 @@ async def edit_sc_action(request):
     cou_sn = paramss.get("cou_sn")
 
     try:
-        # sc_sn = int(sc_sn)
         stu_sn = int(stu_sn)
         cou_sn = int(cou_sn)
     except ValueError:
