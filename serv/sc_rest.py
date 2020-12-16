@@ -63,7 +63,7 @@ async def action_sc_add(request):
 
 @web_routes.post('/action/sc/edit/{stu_sn}/{cou_sn}')
 async def edit_sc_action(request):
-    sc_sn = request.match_info.get("sc_sn")
+    # sc_sn = request.match_info.get("sc_sn")
     stu_sn = request.match_info.get("stu_sn")
     cou_sn = request.match_info.get("cou_sn")
     if stu_sn is None or cou_sn is None:
@@ -73,7 +73,7 @@ async def edit_sc_action(request):
     cou_sn = paramss.get("cou_sn")
 
     try:
-        sc_sn = int(sc_sn)
+        # sc_sn = int(sc_sn)
         stu_sn = int(stu_sn)
         cou_sn = int(cou_sn)
     except ValueError:
@@ -82,8 +82,8 @@ async def edit_sc_action(request):
     with db_block() as db:
         db.execute("""
         UPDATE sc SET cou_sn=%(cou_sn)s
-        WHERE sn = %(sc_sn)s
-        """, dict(stu_sn=stu_sn, cou_sn=cou_sn, sc_sn=sc_sn))
+        WHERE stu_sn = %(stu_sn)s
+        """, dict(stu_sn=stu_sn, cou_sn=cou_sn))
 
     return web.HTTPFound(location="/sc")
 
