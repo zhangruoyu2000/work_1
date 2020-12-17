@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+
+{% block styles %}
+<link href="/grade_list.css" rel="stylesheet" />
+{% endblock %}
+
+{% block page_content %}
+<div class="paper" style="justify-content: end;">
+            <h1>学生：{{ students.stu_name }}</h1>
+
+    <div class="dialog">
+        <div class="content">
+
+            
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>课程</th>
+                        <th>成绩</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.cou_name }}</td>
+                        <td>{{ record.grade }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        
+
+
+
+        </div>
+            <div class="btn" >
+                <a href="/grade">返回</a>
+            </div>
+    </div>
+
+
+</div>
+<!-- <script src="/grade.js"></script> -->
+{% endblock %}

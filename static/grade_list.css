@@ -9,6 +9,11 @@ form.grade-form > select {
     min-width: 8em;
 }
 
+table.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
 
 .ctrlbar {
     display: flex;
