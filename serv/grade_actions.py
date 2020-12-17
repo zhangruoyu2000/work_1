@@ -65,20 +65,20 @@ async def edit_grade_action(request):
     return web.HTTPFound(location="/grade")
 
 
-# @web_routes.post('/action/grade/delete/{stu_sn}/{cou_sn}')
-# def delete_grade_action(request):
-#     stu_sn = request.match_info.get("stu_sn")
-#     cou_sn = request.match_info.get("cou_sn")
-#     if stu_sn is None or cou_sn is None:
-#         return web.HTTPBadRequest(text="stu_sn, cou_sn, must be required")
+@web_routes.post('/action/grade/delete/{stu_sn}/{cou_sn}')
+def delete_grade_action(request):
+    stu_sn = request.match_info.get("stu_sn")
+    cou_sn = request.match_info.get("cou_sn")
+    if stu_sn is None or cou_sn is None:
+        return web.HTTPBadRequest(text="stu_sn, cou_sn, must be required")
 
-#     with db_block() as db:
-#         db.execute("""
-#         DELETE FROM course_grade
-#             WHERE stu_sn = %(stu_sn)s AND cou_sn = %(cou_sn)s
-#         """, dict(stu_sn=stu_sn, cou_sn=cou_sn))
+    with db_block() as db:
+        db.execute("""
+        DELETE FROM course_grade
+            WHERE stu_sn = %(stu_sn)s AND cou_sn = %(cou_sn)s
+        """, dict(stu_sn=stu_sn, cou_sn=cou_sn))
 
-#     return web.HTTPFound(location="/grade")
+    return web.HTTPFound(location="/grade")
 
 # @web_routes.post('/action/grade/select/{stu_sn}')
 # async def select_action_grade(request):
