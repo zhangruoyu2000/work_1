@@ -7,19 +7,22 @@ from .utils import login_required
 async def view_list_grades(request):
     with db_block() as db:
         db.execute("""
-        SELECT sn AS stu_sn, name as stu_name FROM student ORDER BY name
+        SELECT sn AS stu_sn, no as stu_no, name as stu_name FROM student ORDER BY name
         """)
         students = list(db)
 
         db.execute("""
-        SELECT sn AS cou_sn, name as cou_name FROM course ORDER BY name
+        SELECT sn AS cou_sn, term as cou_term, name as cou_name, teacher as cou_teacher FROM course ORDER BY name
         """)
         courses = list(db)
 
         db.execute("""
         SELECT g.stu_sn, g.cou_sn, 
+            s.no as stu_no,
             s.name as stu_name, 
-            c.name as cou_name, 
+            c.term as cou_term, 
+            c.name as cou_name,
+            c.teacher as cou_teacher,
             g.grade 
         FROM course_grade as g
             INNER JOIN student as s ON g.stu_sn = s.sn
@@ -133,3 +136,39 @@ def grade_select_dialog(request):
         return web.HTTPNotFound(text=f"no such grade: stu_sn={stu_sn}")
 
     return render_html(request, 'grade_dialog_select.html', records=records, students=students)
+
+@web_routes.get("/grade/tc/{stu_sn}/{cou_sn}")
+def grade_tc_dialog(request):
+    stu_sn = request.match_info.get("stu_sn")
+    cou_sn = request.match_info.get("cou_sn")
+
+    if cou_sn is None :
+        return web.HTTPBadRequest(text="stu_sn, cou_sn, must be required")
+
+    with db_block() as db:
+        db.execute("""
+        SELECT g.stu_sn, g.cou_sn, 
+            s.name as stu_name, 
+            c.name as cou_name,
+            c.term as cou_term, 
+            g.grade 
+        FROM course_grade as g
+            INNER JOIN student as s ON g.stu_sn = s.sn
+            INNER JOIN course as c  ON g.cou_sn = c.sn
+        WHERE cou_sn = %(cou_sn)s ;
+        """, dict(cou_sn=cou_sn))
+
+        records = list(db)
+
+        db.execute("""
+        SELECT sn AS cou_sn, name as cou_name, term as cou_term FROM course 
+        WHERE sn = %(cou_sn)s;
+        """, dict(cou_sn=cou_sn))
+
+        courses = db.fetch_first()
+
+
+    if records is None:
+        return web.HTTPNotFound(text=f"no such grade: cou_sn={cou_sn}")
+
+    return render_html(request, 'grade_dialog_tc.html', records=records, courses=courses)

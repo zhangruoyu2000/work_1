@@ -30,6 +30,9 @@
         <label>成绩：</label>
         <input type="text" name="grade" />
 
+        <label>考试状态</label>
+        <input type="text" name="status" />
+
         <input type="submit" value="添加成绩" />
 
 
@@ -38,21 +41,30 @@
     <table class="table">
         <thead>
             <tr>
+                <th>学号</th>
                 <th>姓名</th>
+                <th>学期</th>
                 <th>课程</th>
+                <th>任课教师</th>
                 <th>成绩</th>
+                <th>考试状态</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             {% for item in items %}
             <tr>
-                <td>
-                    <a href="/grade/select/{{item.stu_sn}}/{{item.cou_sn}}">
+                <td>{{ item.stu_no }}</td>
+                <td><a href="/grade/select/{{item.stu_sn}}/{{item.cou_sn}}">
                         {{ item.stu_name }}
                     </a></td>
-                <td>{{ item.cou_name }}</td>
+                <td>{{ item.cou_term }}</td>
+                <td><a href="/grade/tc/{{item.stu_sn}}/{{item.cou_sn}}">
+                        {{ item.cou_name }}
+                    </a></td>
+                <td>{{ item.cou_teacher }}</td>
                 <td>{{ item.grade }}</td>
+                <td>{{ item.status }}</td>
                 <td>
                     <div class="ctrlbar">
                         <div class="btn">
@@ -76,36 +88,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <!-- 查询成绩 -->
-
-    
-    <!-- {% for item in items %}
-    <form class="grade-select-form" action="/action/grade/select/{{item.stu_sn}}" method="post" >
-        <label>学生：</label>
-        <select name="stu_sn">
-            <option value="">--选择--</option>
-
-            <option value="{{item.stu_sn}}">
-                {{item.stu_name}}({{item.stu_sn}})
-            </option>
-
-        </select>
-
-
-        <input type="submit" value="查询成绩" />
-
-
-    </form>
-    {% endfor %} -->
-    <!-- {% for item in items %}
-
-    <div class="btn">
-        <a href="/grade/select/{{item.stu_sn}}">
-            修改
-        </a>
-    </div>
-    {% endfor %} -->
 
 
 </div>

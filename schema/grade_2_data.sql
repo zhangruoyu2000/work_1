@@ -4,8 +4,7 @@ INSERT INTO course (sn, no, name,)  VALUES (101, 'C01',  'gaosu'), (102, 'C02', 
 
 INSERT INTO course (sn, no, name, term, week, day, jie)  VALUES (101, 'C01',  'gaosu', '1', 1, '2', 2);
 
-INSERT INTO course_grade (stu_sn, cou_sn, grade)  VALUES (101, 101,  91), (102, 101,  89),
-    (103, 101,  90),
+INSERT INTO course_grade (stu_sn, cou_sn, grade)  VALUES (101, 101,  91), (102, 101,  89), (103, 101,  90);
 
 
 
