@@ -1,45 +1,88 @@
 <html>
-    <head>
-        <title>成绩管理</title>
-        <link rel="stylesheet" href="/contrib/animate_4_1_1.min.css" />
-        <link href="/components.css" rel="stylesheet" />
-        <link href="/base.css" rel="stylesheet" />
-        {% block styles %}{% endblock%}
-        <script>
-            function checkActive(el) {
-                console.log(1111, el.href);
-                return document.location.pathname.startsWith(el.href);
-            }
-        </script>
-    </head>
 
-    <body>
-        <div class="page-head">
-            <img class="logo" src="/logo_256.png" />
-            <div class="title">成绩管理系统</div>
-        </div>
-        <div class="page-body">
-            <div class="sidebar">
-                <ul>
-                    <li {% if location.pathname.startswith("/student") %}active{% endif %}>
-                        <a href="/student">学生</a>
-                    </li>
-                    <li {% if location.pathname.startswith("/course") %}active{% endif %}>
-                        <a href="/course">课程</a>
-                    </li>
-                    <li {% if location.pathname.startswith("/sc") %}active{% endif %}>
-                        <a href="/sc">选课</a>
-                    </li>
+<head>
+    <title>成绩管理</title>
+    <link rel="stylesheet" href="/contrib/animate_4_1_1.min.css" />
+    <link href="/components.css" rel="stylesheet" />
+    <link href="/base.css" rel="stylesheet" />
 
-                    <li {% if location.pathname.startswith("/grade") %}active{% endif %}>
-                        <a href="/grade">成绩单</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="page-content">
-                {% block page_content %}{% endblock %}
-                <div class="page-footer">&copy;天津工业大学 2020</div>
-            </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .exit {
+            position: absolute;
+            right: 40px;
+
+        }
+
+        .exit-btn {
+            color: red;
+            font-size: 20px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#logout").click(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/logout",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({}),
+                    dataType: "json",
+                    success: function (data) {
+                        // 跳转
+                        window.location = "/login"
+
+
+                    },
+                    error: function (data) {
+                        window.alert(data);
+                    }
+                });
+            });
+        });
+
+    </script>
+    {% block styles %}{% endblock %}
+    <script>
+        function checkActive(el) {
+            console.log(1111, el.href);
+            return document.location.pathname.startsWith(el.href);
+        }
+    </script>
+</head>
+
+
+
+<body>
+    <div class="page-head">
+        <img class="logo" src="/logo_256.png" />
+        <div class="title">成绩管理系统</div>
+    </div>
+    <div class="page-body">
+        <div class="sidebar">
+            <ul>
+                <li {% if location.pathname.startswith("/student") %}active{% endif %}>
+                    <a href="/student">学生</a>
+                </li>
+                <li {% if location.pathname.startswith("/course") %}active{% endif %}>
+                    <a href="/course">课程</a>
+                </li>
+                <li {% if location.pathname.startswith("/sc") %}active{% endif %}>
+                    <a href="/sc">选课</a>
+                </li>
+
+                <li {% if location.pathname.startswith("/grade") %}active{% endif %}>
+                    <a href="/grade">成绩单</a>
+                </li>
+            </ul>
         </div>
-    </body>
+        <div class="page-content">
+            {% block page_content %}{% endblock %}
+            <div class="page-footer">&copy;天津工业大学 2020</div>
+        </div>
+    </div>
+</body>
+
 </html>

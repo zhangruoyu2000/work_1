@@ -66,7 +66,7 @@ async function renderList() {
 
 function renderRecordCtrlbar(item) {
     let ctrlbarEl = document.createElement("div");
-
+//修改按钮
     let editBtn = document.createElement("a");
     editBtn.className = "btn";
     editBtn.innerText = "修改";
@@ -74,7 +74,7 @@ function renderRecordCtrlbar(item) {
         openEditDialog(item);
     };
     ctrlbarEl.append(editBtn);
-
+//删除按钮
     let delBtn = document.createElement("a");
     delBtn.className = "btn";
     delBtn.innerText = "删除";
@@ -97,6 +97,14 @@ function renderRecordCtrlbar(item) {
         });
     };
     ctrlbarEl.append(delBtn);
+//查询按钮
+    let queryBtn = document.createElement("a");
+    queryBtn.className = "btn";
+    queryBtn.innerText = "查询";
+    queryBtn.onclick = (e) => {
+       openQueryDialog(items);
+    };
+    ctrlbarEl.append(queryBtn);
 
     return ctrlbarEl;
 }

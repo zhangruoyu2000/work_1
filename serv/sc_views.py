@@ -1,8 +1,10 @@
 from aiohttp import web
 from .config import db_block, web_routes, render_html
-
+from .utils import login_required
 
 @web_routes.get("/sc")
+@login_required
+
 async def view_list_sc(request):
     with db_block() as db:
         db.execute("""

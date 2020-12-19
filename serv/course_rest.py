@@ -21,7 +21,8 @@ async def get_course_list(request):
 async def get_course_profile(request):
     cou_sn = request.match_info.get("cou_sn")
 
-    with db_block() as db:
+#用字典类型传递参数（优点：易读，且不易搞错位置）
+    with db_block() as db:#SQL语句中，参数采用%(key)s语法格式
         db.execute("""
         SELECT sn AS cou_sn, no AS cou_no, name AS cou_name, teacher, term, room, week, day, jie FROM course
         WHERE sn=%(cou_sn)s
