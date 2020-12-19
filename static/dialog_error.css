@@ -15,7 +15,6 @@
     height: max-content;
     background-color: hsl(210 ,100% ,25%);
     color: #fff;
-    justify-content: end;
 
     display: flex;
     flex-direction: column;
