@@ -1,6 +1,6 @@
 
 .col-cou_name, .col-cou_no, .col-teacher, .col-term, .col-room,.col-week, .col-day, .col-jie {
-    min-width: 4em;
+    min-width: 5em;
     width: 8em;
     text-align: center;
 }
@@ -93,15 +93,15 @@ td.ctrlbar .btn {
 
 .course-editor .dialog-body {
     padding: 1em 1em;
-    /* width: 40em; */
+    /*width: 50em;*/
     height: 5em;
 
     display: grid;
-    grid-template-columns: 3em 1fr 5em 1fr;
+    grid-template-columns: 5em 1fr 5em 1fr;
     grid-column-gap: 10px;
     align-items: center;
     grid-row-gap: 15px;
-
+    
 }
 
 .dialog-body label {
@@ -128,6 +128,7 @@ td.ctrlbar .btn {
     border-collapse: collapse;
     border: 1px solid;
 }
+
 
 .dialog-body select{
     padding: 0.2em 0.2em;

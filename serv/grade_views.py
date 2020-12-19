@@ -3,6 +3,7 @@ from .config import db_block, web_routes, render_html
 from .utils import login_required
 
 @web_routes.get("/grade")
+@login_required
 async def view_list_grades(request):
     with db_block() as db:
         db.execute("""
